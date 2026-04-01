@@ -18,8 +18,31 @@ class ApartmentFinderApp extends StatelessWidget {
   }
 }
 
-class ApartmentFinderPage extends StatelessWidget {
+class ApartmentFinderPage extends StatefulWidget {
   const ApartmentFinderPage({super.key});
+
+  @override
+  State<ApartmentFinderPage> createState() => _ApartmentFinderPageState();
+}
+
+class _ApartmentFinderPageState extends State<ApartmentFinderPage> {
+  static const String _titleFontFamily = 'ApartmentTitle';
+
+  static const List<String> _imagePaths = [
+    'assets/images/apartment_1.jpg',
+    'assets/images/apartment_2.jpg',
+    'assets/images/apartment_3.jpg',
+    'assets/images/apartment_4.jpg',
+    'assets/images/apartment_5.jpg',
+  ];
+
+  int _currentImageIndex = 0;
+
+  void _nextImage() {
+    setState(() {
+      _currentImageIndex = (_currentImageIndex + 1) % _imagePaths.length;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +53,10 @@ class ApartmentFinderPage extends StatelessWidget {
         centerTitle: true,
         title: const Text(
           'ПОДБОР КВАРТИРЫ',
-          style: TextStyle(fontWeight: FontWeight.w700),
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontFamily: _titleFontFamily,
+          ),
         ),
       ),
       body: SafeArea(
@@ -62,23 +88,52 @@ class ApartmentFinderPage extends StatelessWidget {
               const Divider(thickness: 2),
               const SizedBox(height: 16),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Container(
-                      height: 190,
+                      height: 240,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black, width: 2),
                         color: Colors.white,
                       ),
-                      child: const Center(
-                        child: Icon(Icons.apartment, size: 90),
+                      child: GestureDetector(
+                        onTap: _nextImage,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Image.asset(
+                                _imagePaths[_currentImageIndex],
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Center(
+                                    child: Icon(Icons.apartment, size: 90),
+                                  );
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                              child: Text(
+                                'Кадр ${_currentImageIndex + 1}/5',
+                                key: const ValueKey('image-index-label'),
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Container(
-                      height: 190,
+                      height: 240,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black, width: 2),
@@ -87,13 +142,22 @@ class ApartmentFinderPage extends StatelessWidget {
                       child: const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          '1. Фильтр по цене\n2. Карта районов\n3. Избранное\n4. Контакты риелторов',
+                          '1. Фильтр по цене\n2. Карта районов\n3. Избранное\n4. Контакты риелторов\n5. Фото квартир',
                           style: TextStyle(fontSize: 20, height: 1.4),
                         ),
                       ),
                     ),
                   ),
                 ],
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: _nextImage,
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Следующее изображение'),
+                ),
               ),
               const SizedBox(height: 16),
               const Divider(thickness: 2),
