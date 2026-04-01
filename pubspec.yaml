@@ -60,11 +60,10 @@ flutter:
   assets:
     - assets/images/
 
-  # После того как добавите ttf-файл, раскомментируйте блок ниже.
-  # fonts:
-  #   - family: ApartmentTitle
-  #     fonts:
-  #       - asset: assets/fonts/apartment_title.ttf
+  fonts:
+    - family: ApartmentTitle
+      fonts:
+        - asset: assets/fonts/apartment_title.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

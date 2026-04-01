@@ -12,4 +12,4 @@
 
 - `assets/fonts/apartment_title.ttf`
 
-После добавления шрифта раскомментируйте блок `fonts` в `pubspec.yaml`.
+Шрифт уже подключен в `pubspec.yaml`, важно сохранить точное имя файла.
