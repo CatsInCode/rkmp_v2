@@ -3,19 +3,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rkmp/main.dart';
 
 void main() {
-  testWidgets('renders practical #4 lists and shows SnackBar on tap', (
+  testWidgets('login page renders and validates fields', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(const ApartmentFinderApp());
+    await tester.pumpWidget(const ApartmentAuthApp());
 
-    expect(find.text('ПОДБОР КВАРТИРЫ'), findsOneWidget);
-    expect(find.byKey(const ValueKey('horizontal-image-list')), findsOneWidget);
-    expect(find.byKey(const ValueKey('feature-list')), findsOneWidget);
-    expect(find.text('Фильтр по цене'), findsOneWidget);
+    expect(find.textContaining('Добро пожаловать'), findsOneWidget);
+    expect(find.text('Войти'), findsOneWidget);
 
-    await tester.tap(find.text('Фильтр по цене'));
+    await tester.tap(find.text('Войти'));
     await tester.pump();
 
-    expect(find.text('Выбран пункт: Фильтр по цене'), findsOneWidget);
+    expect(find.text('Поле не может быть пустым'), findsNWidgets(2));
   });
 }
