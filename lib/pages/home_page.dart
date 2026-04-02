@@ -15,11 +15,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<_FeatureItem> _features = const [
-    _FeatureItem('Пункт 1', 'Описание пункта 1', Icons.sell),
-    _FeatureItem('Пункт 2', 'Описание пункта 2', Icons.map),
-    _FeatureItem('Пункт 3', 'Описание пункта 3', Icons.favorite),
-    _FeatureItem('Пункт 4', 'Описание пункта 4', Icons.call),
-    _FeatureItem('Пункт 5', 'Описание пункта 5', Icons.photo),
+    _FeatureItem('Фильтр по цене', 'Подбор квартиры по вашему бюджету', Icons.sell),
+    _FeatureItem('Карта районов', 'Поиск вариантов по районам и метро', Icons.map),
+    _FeatureItem('Избранное', 'Сохраняйте понравившиеся объявления', Icons.favorite),
+    _FeatureItem('Контакты риелторов', 'Быстрая связь с владельцами и агентами', Icons.call),
+    _FeatureItem('Фото квартир', 'Сравнение планировок и состояния жилья', Icons.photo),
   ];
 
   final List<String> _imagePaths = const [
@@ -42,15 +42,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF7FFF00),
         centerTitle: true,
-        title: const Text('MAGENTA'),
+        title: const Text('ПОДБОР КВАРТИРЫ'),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: verticalGap),
         child: Column(
           children: [
-            const Text('Название ПО', style: TextStyle(fontSize: 24)),
+            const Text('Название ПО: EasyFlat', style: TextStyle(fontSize: 24)),
             SizedBox(height: verticalGap),
-            const Text('Описание ПО', style: TextStyle(fontSize: 20)),
+            const Text('Описание ПО: Подбор квартиры по бюджету, району, количеству комнат и близости к метро.', textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
             SizedBox(height: verticalGap),
             SizedBox(
               height: 120,
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
               children: const [
                 Icon(Icons.person_outline),
                 SizedBox(width: 10),
-                Expanded(child: Text('ФИО номер группы', textAlign: TextAlign.center)),
+                Expanded(child: Text('Горохов С. А.  ИКБО-11-22', textAlign: TextAlign.center)),
               ],
             ),
           ],
