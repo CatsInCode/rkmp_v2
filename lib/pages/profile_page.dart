@@ -126,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   prefixIcon: Icons.security,
                   controller: _confirmPasswordController,
                   focusNode: _confirmPasswordFocus,
-                  passwordToConfirm: _passwordController.text,
+                  passwordController: _passwordController,
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(

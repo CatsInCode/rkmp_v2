@@ -12,7 +12,7 @@ class CustomTextFormField extends StatefulWidget {
     required this.controller,
     this.focusNode,
     this.nextFocusNode,
-    this.passwordToConfirm,
+    this.passwordController,
   });
 
   final InputFieldType inputType;
@@ -22,7 +22,7 @@ class CustomTextFormField extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode? focusNode;
   final FocusNode? nextFocusNode;
-  final String? passwordToConfirm;
+  final TextEditingController? passwordController;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -58,7 +58,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         }
         break;
       case InputFieldType.confirmPassword:
-        if (value != widget.passwordToConfirm) {
+        if (value != widget.passwordController?.text) {
           return 'Пароли не совпадают';
         }
         break;

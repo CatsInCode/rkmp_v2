@@ -98,7 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   prefixIcon: Icons.security,
                   controller: _confirmPasswordController,
                   focusNode: _confirmPasswordFocus,
-                  passwordToConfirm: _passwordController.text,
+                  passwordController: _passwordController,
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
