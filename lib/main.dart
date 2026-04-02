@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
 
-import 'screens/welcome_screen.dart';
+import 'pages/home_page.dart';
+import 'pages/loading_page.dart';
+import 'pages/login_page.dart';
+import 'pages/profile_page.dart';
+import 'pages/register_page.dart';
+import 'routes.dart';
 
 void main() {
-  runApp(const ApartmentAuthApp());
+  runApp(const ApartmentApp());
 }
 
-class ApartmentAuthApp extends StatelessWidget {
-  const ApartmentAuthApp({super.key});
+class ApartmentApp extends StatelessWidget {
+  const ApartmentApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomeScreen(),
+      initialRoute: Routes.loading,
+      routes: {
+        Routes.loading: (_) => const LoadingPage(),
+        Routes.login: (_) => const LoginPage(),
+        Routes.register: (_) => const RegisterPage(),
+        Routes.home: (_) => const HomePage(),
+        Routes.profile: (_) => const ProfilePage(),
+      },
     );
   }
 }

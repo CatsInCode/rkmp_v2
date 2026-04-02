@@ -1,13 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:rkmp/main.dart';
 
 void main() {
-  testWidgets('welcome screen renders main actions', (WidgetTester tester) async {
-    await tester.pumpWidget(const ApartmentAuthApp());
+  testWidgets('loading screen is shown first', (WidgetTester tester) async {
+    await tester.pumpWidget(const ApartmentApp());
 
-    expect(find.text('Добро пожаловать в EasyFlat'), findsOneWidget);
-    expect(find.text('Войти'), findsOneWidget);
-    expect(find.text('Регистрация'), findsOneWidget);
+    expect(find.text('НАЗВАНИЕ ПРИЛОЖЕНИЯ'), findsOneWidget);
+    expect(find.byIcon(Icons.apartment), findsOneWidget);
   });
 }
