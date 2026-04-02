@@ -14,7 +14,7 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 10), () {
       if (!mounted) return;
       Navigator.pushReplacementNamed(context, Routes.login);
     });
