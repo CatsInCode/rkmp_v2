@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF7FFF00),
         centerTitle: true,
-        title: const Text('НАЗВАНИЕ ПРИЛОЖЕНИЯ'),
+        title: const Text('MAGENTA'),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: verticalGap),
