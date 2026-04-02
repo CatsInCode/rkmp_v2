@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'pages/login_page.dart';
+import 'screens/welcome_screen.dart';
 
 void main() {
   runApp(const ApartmentAuthApp());
@@ -13,7 +13,7 @@ class ApartmentAuthApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: WelcomeScreen(),
     );
   }
 }
