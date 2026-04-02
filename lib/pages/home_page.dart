@@ -84,11 +84,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final media = MediaQuery.of(context);
-    final isWide = media.size.width > 600;
-    final isDesktop = kIsWeb || Platform.isMacOS || Platform.isLinux || Platform.isWindows;
-    final verticalGap = isDesktop ? 16.0 : 8.0;
-
     return Scaffold(
       backgroundColor: const Color(0xFFE8E8E8),
       appBar: AppBar(
@@ -96,67 +91,79 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         title: const Text('ПОДБОР КВАРТИРЫ'),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: verticalGap),
-        child: Column(
-          children: [
-            const Text('Название ПО: EasyFlat', style: TextStyle(fontSize: 24)),
-            SizedBox(height: verticalGap),
-            const Text(
-              'Описание ПО: Подбор квартиры по бюджету, району, количеству комнат и близости к метро.',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: verticalGap),
-            SizedBox(
-              height: 120,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: _features.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 10),
-                itemBuilder: (_, i) => ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Container(
-                    width: 140,
-                    color: Colors.white,
-                    child: Image.asset(
-                      _features[i].imagePath,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => const Icon(Icons.image, size: 48),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final isMobile = constraints.maxWidth < 600;
+          final isDesktop = kIsWeb || Platform.isMacOS || Platform.isLinux || Platform.isWindows;
+          final sidePadding = isMobile ? 16.0 : 24.0;
+          final verticalGap = isDesktop ? 16.0 : 10.0;
+          final imageHeight = isMobile ? 120.0 : 150.0;
+
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: sidePadding, vertical: verticalGap),
+              child: Column(
+                children: [
+                  Text('Название ПО: EasyFlat', style: TextStyle(fontSize: isMobile ? 22 : 26)),
+                  SizedBox(height: verticalGap),
+                  Text(
+                    'Описание ПО: Подбор квартиры по бюджету, району, количеству комнат и близости к метро.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: isMobile ? 18 : 22),
+                  ),
+                  SizedBox(height: verticalGap),
+                  SizedBox(
+                    height: imageHeight,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _features.length,
+                      separatorBuilder: (_, __) => const SizedBox(width: 10),
+                      itemBuilder: (_, i) => ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Container(
+                          width: isMobile ? 140 : 170,
+                          color: Colors.white,
+                          child: Image.asset(
+                            _features[i].imagePath,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => const Icon(Icons.image, size: 48),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(height: verticalGap),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: isMobile ? 1 : 2,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 12,
+                      childAspectRatio: isMobile ? 3.0 : 2.8,
+                    ),
+                    itemCount: _features.length,
+                    itemBuilder: (_, index) => _featureCard(_features[index]),
+                  ),
+                  SizedBox(height: verticalGap),
+                  Row(
+                    children: [
+                      const Icon(Icons.person_outline),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          'Горохов С. А.  ИКБО-11-22',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: isMobile ? 14 : 16),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: verticalGap),
-            Expanded(
-              child: isWide
-                  ? GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 12,
-                        crossAxisSpacing: 12,
-                        childAspectRatio: 3,
-                      ),
-                      itemCount: _features.length,
-                      itemBuilder: (_, index) => _featureCard(_features[index]),
-                    )
-                  : ListView.separated(
-                      itemCount: _features.length,
-                      separatorBuilder: (_, __) => SizedBox(height: verticalGap),
-                      itemBuilder: (_, index) => _featureCard(_features[index]),
-                    ),
-            ),
-            SizedBox(height: verticalGap),
-            const Row(
-              children: [
-                Icon(Icons.person_outline),
-                SizedBox(width: 10),
-                Expanded(child: Text('Горохов С. А.  ИКБО-11-22', textAlign: TextAlign.center)),
-              ],
-            ),
-          ],
-        ),
+          );
+        },
       ),
       bottomNavigationBar: const AppBottomNav(currentIndex: 0),
     );
