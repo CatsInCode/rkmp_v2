@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../routes.dart';
+import '../widgets/app_bottom_nav.dart';
 import '../services/auth_service.dart';
 import '../widgets/background_widget.dart';
 
@@ -60,18 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: 1,
-        onDestinationSelected: (index) {
-          if (index == 0) {
-            Navigator.pushReplacementNamed(context, Routes.home);
-          }
-        },
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: 'Главная'),
-          NavigationDestination(icon: Icon(Icons.person_outline), selectedIcon: Icon(Icons.person), label: 'Профиль'),
-        ],
-      ),
+      bottomNavigationBar: const AppBottomNav(currentIndex: 1),
     );
   }
 }
